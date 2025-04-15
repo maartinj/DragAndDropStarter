@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E44341AC2DAE5D810025C3AB /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = E44341AB2DAE5D810025C3AB /* Algorithms */; };
 		EDC62D062A66D30900417780 /* DragAndDropStarterApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC62D052A66D30900417780 /* DragAndDropStarterApp.swift */; };
 		EDC62D082A66D30900417780 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC62D072A66D30900417780 /* ContentView.swift */; };
 		EDC62D0A2A66D30A00417780 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EDC62D092A66D30A00417780 /* Assets.xcassets */; };
@@ -26,6 +27,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E44341AC2DAE5D810025C3AB /* Algorithms in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -111,6 +113,9 @@
 				Base,
 			);
 			mainGroup = EDC62CF92A66D30900417780;
+			packageReferences = (
+				E44341AA2DAE5D810025C3AB /* XCRemoteSwiftPackageReference "swift-algorithms" */,
+			);
 			productRefGroup = EDC62D032A66D30900417780 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -349,6 +354,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		E44341AA2DAE5D810025C3AB /* XCRemoteSwiftPackageReference "swift-algorithms" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-algorithms.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		E44341AB2DAE5D810025C3AB /* Algorithms */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E44341AA2DAE5D810025C3AB /* XCRemoteSwiftPackageReference "swift-algorithms" */;
+			productName = Algorithms;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = EDC62CFA2A66D30900417780 /* Project object */;
 }

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Algorithms
 
 struct ContentView: View {
 
@@ -22,7 +23,9 @@ struct ContentView: View {
                         toDoTasks.removeAll(where: { $0 == task })
                         doneTasks.removeAll(where: { $0 == task })
                     }
-                    inProgressTasks += droppedTasks
+
+                    let totalTasks = inProgressTasks + droppedTasks
+                    inProgressTasks = Array(totalTasks.uniqued())
                     return true
                 }
 
