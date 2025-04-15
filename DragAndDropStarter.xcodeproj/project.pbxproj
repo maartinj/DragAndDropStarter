@@ -15,6 +15,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E44341AD2DAE666B0025C3AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		EDC62D022A66D30900417780 /* DragAndDropStarter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DragAndDropStarter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EDC62D052A66D30900417780 /* DragAndDropStarterApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragAndDropStarterApp.swift; sourceTree = "<group>"; };
 		EDC62D072A66D30900417780 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -53,6 +54,7 @@
 		EDC62D042A66D30900417780 /* DragAndDropStarter */ = {
 			isa = PBXGroup;
 			children = (
+				E44341AD2DAE666B0025C3AB /* Info.plist */,
 				EDC62D052A66D30900417780 /* DragAndDropStarterApp.swift */,
 				EDC62D072A66D30900417780 /* ContentView.swift */,
 				EDC62D092A66D30A00417780 /* Assets.xcassets */,
@@ -275,6 +277,7 @@
 				DEVELOPMENT_TEAM = 4P4GQMB6S7;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = DragAndDropStarter/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -309,6 +312,7 @@
 				DEVELOPMENT_TEAM = 4P4GQMB6S7;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = DragAndDropStarter/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

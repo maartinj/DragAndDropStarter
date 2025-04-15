@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Algorithms
+import UniformTypeIdentifiers
 
 struct ContentView: View {
 
@@ -117,6 +118,10 @@ struct DeveloperTask: Codable, Transferable {
     let note: String
 
     static var transferRepresentation: some TransferRepresentation {
-        CodableRepresentation(contentType: .html)
+        CodableRepresentation(contentType: .developerTask)
     }
+}
+
+extension UTType {
+    static let developerTask = UTType(exportedAs: "com.mj.developerTask")
 }
