@@ -109,3 +109,14 @@ struct KanbanView: View {
         }
     }
 }
+
+struct DeveloperTask: Codable, Transferable {
+    let id: UUID
+    let title: String
+    let owner: String
+    let note: String
+
+    static var transferRepresentation: some TransferRepresentation {
+        CodableRepresentation(contentType: .html)
+    }
+}
