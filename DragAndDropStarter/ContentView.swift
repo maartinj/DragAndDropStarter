@@ -14,10 +14,15 @@ struct ContentView: View {
     @State private var inProgressTasks: [String] = []
     @State private var doneTasks: [String] = []
 
+    @State private var isToDoTargeted = false
+    @State private var isInProgressTargeted = false
+    @State private var isDoneTargeted = false
+
     var body: some View {
         HStack(spacing: 12) {
-            KanbanView(title: "To Do", tasks: toDoTasks)
-            KanbanView(title: "In Progress", tasks: inProgressTasks)
+            KanbanView(title: "To Do", tasks: toDoTasks, isTargeted: isToDoTargeted)
+
+            KanbanView(title: "In Progress", tasks: inProgressTasks, isTargeted: isInProgressTargeted)
                 .dropDestination(for: String.self) { droppedTasks, location in
                     for task in droppedTasks {
                         toDoTasks.removeAll(where: { $0 == task })
@@ -27,9 +32,11 @@ struct ContentView: View {
                     let totalTasks = inProgressTasks + droppedTasks
                     inProgressTasks = Array(totalTasks.uniqued())
                     return true
+                } isTargeted: { isTargeted in
+                    isInProgressTargeted = isTargeted
                 }
 
-            KanbanView(title: "Done", tasks: doneTasks)
+            KanbanView(title: "Done", tasks: doneTasks, isTargeted: isDoneTargeted)
         }
         .padding()
     }
@@ -46,6 +53,7 @@ struct KanbanView: View {
 
     let title: String
     let tasks: [String]
+    let isTargeted: Bool
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -54,7 +62,7 @@ struct KanbanView: View {
             ZStack {
                 RoundedRectangle(cornerRadius: 12)
                     .frame(maxWidth: .infinity)
-                    .foregroundColor(Color(.secondarySystemFill))
+                    .foregroundColor(isTargeted ? .teal.opacity(0.15) : Color(.secondarySystemFill))
 
                 VStack(alignment: .leading, spacing: 12) {
                     ForEach(tasks, id: \.self) { task in
