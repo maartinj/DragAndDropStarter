@@ -21,6 +21,18 @@ struct ContentView: View {
     var body: some View {
         HStack(spacing: 12) {
             KanbanView(title: "To Do", tasks: toDoTasks, isTargeted: isToDoTargeted)
+                .dropDestination(for: String.self) { droppedTasks, location in
+                    for task in droppedTasks {
+                        inProgressTasks.removeAll(where: { $0 == task })
+                        doneTasks.removeAll(where: { $0 == task })
+                    }
+
+                    let totalTasks = toDoTasks + droppedTasks
+                    toDoTasks = Array(totalTasks.uniqued())
+                    return true
+                } isTargeted: { isTargeted in
+                    isToDoTargeted = isTargeted
+                }
 
             KanbanView(title: "In Progress", tasks: inProgressTasks, isTargeted: isInProgressTargeted)
                 .dropDestination(for: String.self) { droppedTasks, location in
@@ -37,6 +49,18 @@ struct ContentView: View {
                 }
 
             KanbanView(title: "Done", tasks: doneTasks, isTargeted: isDoneTargeted)
+                .dropDestination(for: String.self) { droppedTasks, location in
+                    for task in droppedTasks {
+                        toDoTasks.removeAll(where: { $0 == task })
+                        inProgressTasks.removeAll(where: { $0 == task })
+                    }
+
+                    let totalTasks = doneTasks + droppedTasks
+                    doneTasks = Array(totalTasks.uniqued())
+                    return true
+                } isTargeted: { isTargeted in
+                    isDoneTargeted = isTargeted
+                }
         }
         .padding()
     }
