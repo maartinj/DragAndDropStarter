@@ -11,9 +11,9 @@ import UniformTypeIdentifiers
 
 struct ContentView: View {
 
-    @State private var toDoTasks: [String] = ["@Observable Migration", "Keyframe Animations", "Migrate to Swift Data"]
-    @State private var inProgressTasks: [String] = []
-    @State private var doneTasks: [String] = []
+    @State private var toDoTasks: [DeveloperTask] = [MockData.taskOne, MockData.taskTwo, MockData.taskThree]
+    @State private var inProgressTasks: [DeveloperTask] = []
+    @State private var doneTasks: [DeveloperTask] = []
 
     @State private var isToDoTargeted = false
     @State private var isInProgressTargeted = false
@@ -22,10 +22,10 @@ struct ContentView: View {
     var body: some View {
         HStack(spacing: 12) {
             KanbanView(title: "To Do", tasks: toDoTasks, isTargeted: isToDoTargeted)
-                .dropDestination(for: String.self) { droppedTasks, location in
+                .dropDestination(for: DeveloperTask.self) { droppedTasks, location in
                     for task in droppedTasks {
-                        inProgressTasks.removeAll(where: { $0 == task })
-                        doneTasks.removeAll(where: { $0 == task })
+                        inProgressTasks.removeAll(where: { $0.id == task.id })
+                        doneTasks.removeAll(where: { $0.id == task.id })
                     }
 
                     let totalTasks = toDoTasks + droppedTasks
@@ -36,10 +36,10 @@ struct ContentView: View {
                 }
 
             KanbanView(title: "In Progress", tasks: inProgressTasks, isTargeted: isInProgressTargeted)
-                .dropDestination(for: String.self) { droppedTasks, location in
+                .dropDestination(for: DeveloperTask.self) { droppedTasks, location in
                     for task in droppedTasks {
-                        toDoTasks.removeAll(where: { $0 == task })
-                        doneTasks.removeAll(where: { $0 == task })
+                        toDoTasks.removeAll(where: { $0.id == task.id })
+                        doneTasks.removeAll(where: { $0.id == task.id })
                     }
 
                     let totalTasks = inProgressTasks + droppedTasks
@@ -50,10 +50,10 @@ struct ContentView: View {
                 }
 
             KanbanView(title: "Done", tasks: doneTasks, isTargeted: isDoneTargeted)
-                .dropDestination(for: String.self) { droppedTasks, location in
+                .dropDestination(for: DeveloperTask.self) { droppedTasks, location in
                     for task in droppedTasks {
-                        toDoTasks.removeAll(where: { $0 == task })
-                        inProgressTasks.removeAll(where: { $0 == task })
+                        toDoTasks.removeAll(where: { $0.id == task.id })
+                        inProgressTasks.removeAll(where: { $0.id == task.id })
                     }
 
                     let totalTasks = doneTasks + droppedTasks
@@ -77,7 +77,7 @@ struct ContentView_Previews: PreviewProvider {
 struct KanbanView: View {
 
     let title: String
-    let tasks: [String]
+    let tasks: [DeveloperTask]
     let isTargeted: Bool
 
     var body: some View {
@@ -90,8 +90,8 @@ struct KanbanView: View {
                     .foregroundColor(isTargeted ? .teal.opacity(0.15) : Color(.secondarySystemFill))
 
                 VStack(alignment: .leading, spacing: 12) {
-                    ForEach(tasks, id: \.self) { task in
-                        Text(task)
+                    ForEach(tasks, id: \.id) { task in
+                        Text(task.title)
                             .padding(12)
 #if os(iOS)
                             .background(Color(uiColor: .secondarySystemGroupedBackground))
@@ -111,7 +111,7 @@ struct KanbanView: View {
     }
 }
 
-struct DeveloperTask: Codable, Transferable {
+struct DeveloperTask: Codable, Hashable, Transferable {
     let id: UUID
     let title: String
     let owner: String
@@ -124,4 +124,21 @@ struct DeveloperTask: Codable, Transferable {
 
 extension UTType {
     static let developerTask = UTType(exportedAs: "com.mj.developerTask")
+}
+
+struct MockData {
+    static let taskOne = DeveloperTask(id: UUID(),
+                                       title: "@Observable Migration",
+                                       owner: "Sean Allen",
+                                       note: "Note placeholder")
+
+    static let taskTwo = DeveloperTask(id: UUID(),
+                                       title: "Keyframe Animations",
+                                       owner: "Sean Allen",
+                                       note: "Note placeholder")
+
+    static let taskThree = DeveloperTask(id: UUID(),
+                                         title: "Migrate to Swift Data",
+                                         owner: "Sean Allen",
+                                         note: "Note placeholder")
 }
