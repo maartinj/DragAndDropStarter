@@ -48,7 +48,11 @@ struct KanbanView: View {
                     ForEach(tasks, id: \.self) { task in
                         Text(task)
                             .padding(12)
+#if os(iOS)
                             .background(Color(uiColor: .secondarySystemGroupedBackground))
+#elseif os(macOS)
+                            .background(Color.gray)
+#endif
                             .cornerRadius(8)
                             .shadow(radius: 1, x: 1, y: 1)
                     }
