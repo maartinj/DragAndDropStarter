@@ -17,6 +17,15 @@ struct ContentView: View {
         HStack(spacing: 12) {
             KanbanView(title: "To Do", tasks: toDoTasks)
             KanbanView(title: "In Progress", tasks: inProgressTasks)
+                .dropDestination(for: String.self) { droppedTasks, location in
+                    for task in droppedTasks {
+                        toDoTasks.removeAll(where: { $0 == task })
+                        doneTasks.removeAll(where: { $0 == task })
+                    }
+                    inProgressTasks += droppedTasks
+                    return true
+                }
+
             KanbanView(title: "Done", tasks: doneTasks)
         }
         .padding()
